@@ -1,0 +1,16 @@
+- name: Test proxy
+  hosts: all
+  gather_facts: False
+  any_errors_fatal: True
+
+  tasks: 
+    - name: get config
+      vyos.vyos.vyos_config:
+        lines:
+          - set system host-name {{ inventory_hostname }}
+          - set service lldp
+        save: True
+      when: inventory_hostname in groups['vyos']
+      
+      
+
